@@ -1,0 +1,10 @@
+^C:\USERS\JEAN\MESHCONVOLUTION\TRAIN\0422_GRAPHAE_DFAUST\CONNECTIONS\CMAKEFILES\E7E012D78061179EF0B858F379FCC5C5\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/JEAN/MeshConvolution/code/GraphSampling -BC:/Users/JEAN/MeshConvolution/train/0422_graphAE_dfaust/connections --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/JEAN/MeshConvolution/train/0422_graphAE_dfaust/connections/GraphSampling.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 """
 Spyder Editor
 
@@ -188,7 +188,7 @@ def train(param):
         
 
 param=Param.Parameters()
-param.read_config("../../train/0422_graphAE_dfaust/30_conv_res.config")
+param.read_config("../../train/0422_graphAE_dfaust/10_conv_res.config")
 
 train(param)
 

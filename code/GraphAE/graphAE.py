@@ -292,7 +292,15 @@ class Model(nn.Module):
         
         in_pc_pad = torch.cat((in_pc, torch.zeros(batch, 1, in_channel).cuda()), 1) #batch*(in_pn+1)*in_channel
 
-        in_neighbors = in_pc_pad[:, neighbor_id_lstlst] #batch*out_pn*max_neighbor_num*in_channel
+        # Debugging: Print shapes and some indices
+        print(f"in_pc.shape: {in_pc.shape}, in_pc_pad.shape: {in_pc_pad.shape}")
+        print(f"neighbor_id_lstlst.shape: {neighbor_id_lstlst.shape}")
+        print(f"Some neighbor indices: {neighbor_id_lstlst[:5, :5]}")
+        
+        in_neighbors = in_pc_pad[:, neighbor_id_lstlst] # batch*out_pn*max_neighbor_num*in_channel
+        
+        # More debugging: Print shape of in_neighbors
+        print(f"in_neighbors.shape: {in_neighbors.shape}")
 
 
         ####compute output of convolution layer####
@@ -569,27 +577,7 @@ class Model(nn.Module):
             
         print ("Total network param num:", total_param)   
    
-   
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         
         
         

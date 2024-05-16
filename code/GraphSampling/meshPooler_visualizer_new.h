@@ -157,7 +157,7 @@ double cos_sin_to_radius(double cos, double sin )
         }
         
     }
-    
+    return radius;
 }
 
 class MeshPooler_Visualizer

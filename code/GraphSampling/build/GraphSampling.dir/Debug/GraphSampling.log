@@ -1,0 +1,80 @@
+﻿  Building Custom Rule C:/Users/JEAN/MeshConvolution/code/GraphSampling/CMakeLists.txt
+  main.cpp
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler.h(219,64): warning C4267: “+=”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler.h(224,39): warning C4267: “+=”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler.h(310,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler.h(328,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler.h(345,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler.h(402,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler.h(643,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler.h(704,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshCNN.h(53,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshCNN.h(59,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshCNN.h(77,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshCNN.h(82,1): warning C4267: “参数”: 从“size_t”转换到“_Ty”，可能丢失数据
+          with
+          [
+              _Ty=int
+          ]
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshCNN.h(100,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshCNN.h(101,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshCNN.h(109,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshCNN.h(117,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler_visualizer_new.h(173,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler_visualizer_new.h(199,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler_visualizer_new.h(200,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler_visualizer_new.h(238,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler_visualizer_new.h(274,21): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler_visualizer_new.h(285,86): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler_visualizer_new.h(285,73): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler_visualizer_new.h(285,60): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler_visualizer_new.h(364,1): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler_visualizer_new.h(383,21): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler_visualizer_new.h(394,86): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler_visualizer_new.h(394,73): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler_visualizer_new.h(394,60): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=float
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.35.32215\include\numeric(34,1): warning C4267: “=”: 从“size_t”转换到“_Ty”，可能丢失数据
+          with
+          [
+              _Ty=int
+          ]
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\cnpy/cnpy.h(130,1): message : 查看对正在编译的函数 模板 实例化“_Ty std::accumulate<std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<unsigned __int64>>>,int,std::multiplies<size_t>>(const _InIt,const _InIt,_Ty,_Fn)”的引用
+          with
+          [
+              _Ty=int,
+              _InIt=std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<size_t>>>,
+              _Fn=std::multiplies<size_t>
+          ]
+C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshCNN.h(114,1): message : 查看对正在编译的函数 模板 实例化“void cnpy::npy_save<_Ty>(std::string,const T *,const std::vector<size_t,std::allocator<size_t>>,std::string)”的引用
+          with
+          [
+              _Ty=int,
+              T=int
+          ]
+  cnpy.cpp
+  正在生成代码...
+  GraphSampling.vcxproj -> C:\Users\JEAN\MeshConvolution\train\0422_graphAE_dfaust\connections\Debug\GraphSampling.exe

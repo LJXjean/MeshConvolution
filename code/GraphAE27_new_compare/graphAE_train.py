@@ -213,7 +213,7 @@ def train(param):
         
 
 param=Param.Parameters()
-param.read_config("../../train/0223_GraphAE27_compare/40_conv_pool_FeaST.config")
+param.read_config("../../train/0223_GraphAE27_compare/00_conv_pool_Cheb.config")
 
 train(param)
 

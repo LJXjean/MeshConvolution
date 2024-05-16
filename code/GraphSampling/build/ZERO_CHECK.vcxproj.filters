@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\JEAN\MeshConvolution\train\0422_graphAE_dfaust\connections\CMakeFiles\e7e012d78061179ef0b858f379fcc5c5\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{653FEF66-D686-318F-971D-B7186475F1D1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

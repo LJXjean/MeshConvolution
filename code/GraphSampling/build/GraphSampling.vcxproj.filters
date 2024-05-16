@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\JEAN\MeshConvolution\code\GraphSampling\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\JEAN\MeshConvolution\code\GraphSampling\cnpy\cnpy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\JEAN\MeshConvolution\code\GraphSampling\mdSArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\JEAN\MeshConvolution\code\GraphSampling\mdVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\JEAN\MeshConvolution\code\GraphSampling\mdVector.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshPooler_visualizer_new.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\JEAN\MeshConvolution\code\GraphSampling\meshCNN.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\JEAN\MeshConvolution\code\GraphSampling\cnpy\cnpy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\JEAN\MeshConvolution\code\GraphSampling\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{466CB24A-F867-3FA0-A8C1-75FB7E9717E9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{E8D9CF9A-55D0-30D4-B9B7-F47603818918}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

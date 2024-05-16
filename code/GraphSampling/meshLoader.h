@@ -46,7 +46,7 @@ public:
             cout << "Failed to load obj.\n";
             return 0;
         }
-
+        return true;
     }
 
     bool LoadOFF(const string & fileName,
