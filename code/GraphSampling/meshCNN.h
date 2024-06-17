@@ -95,38 +95,44 @@ public:
     //               neighbor_num, neighbor_id0, neighbor_id1, ..., neighbor_idx, previous_size, ..., previous_size
     void save_pool_and_unpool_neighbor_info_to_npz(const string& save_path)
     {
-        for(int i=0;i<_meshPoolers.size(); i++)
+        for(int i = 0; i < _meshPoolers.size(); i++)
         {
             int after_pool_size = (_meshPoolers[i]._center_center_map.size());
             int before_pool_size = (_meshPoolers[i]._connection_map.size());
 
             vector<int> pool_neighborID_lst_lst = get_neighborID_lst_lst(_meshPoolers[i]._pool_map, before_pool_size);
-
             vector<int> unpool_neighborID_lst_lst = get_neighborID_lst_lst(_meshPoolers[i]._unpool_map, after_pool_size);
 
+            cout << "save " << save_path + "_pool" + to_string(i) + ".npy\n";
+            int neighbor_num_pool_2 = pool_neighborID_lst_lst.size() / after_pool_size - 1;
+            std::vector<size_t> shape_info = { (size_t)after_pool_size, (size_t)(1 + neighbor_num_pool_2) };
+            cout << "output point num: " << shape_info[0] << "; max_neighbor_num: " << shape_info[1] << "\n";
 
-            cout<<"save "<<save_path+"_pool"+to_string(i)+".npy\n";
-            int neighbor_num_pool_2 = pool_neighborID_lst_lst.size()/after_pool_size-1;
-            
-            std::vector<size_t > shape_info = {(size_t)after_pool_size, (size_t)(1+neighbor_num_pool_2) };
-            cout<<"output point num: "<<shape_info[0]<<"; max_neighbor_num: "<<shape_info[1]<<"\n";
+            try {
+                cnpy::npy_save(save_path + "_pool" + to_string(i) + ".npy", &pool_neighborID_lst_lst[0], shape_info, "w");
+            } catch (const std::exception &e) {
+                cerr << "Error saving pool file: " << e.what() << "\n";
+                return;
+            }
 
-            cnpy::npy_save(save_path+"_pool"+to_string(i)+".npy", &pool_neighborID_lst_lst [0], shape_info, "w");//"a" appends to the file we created above
+            cout << "save " << save_path + "_unpool" + to_string(i) + ".npy\n";
+            int neighbor_num_unpool_2 = unpool_neighborID_lst_lst.size() / before_pool_size - 1;
+            shape_info = { (size_t)before_pool_size, (size_t)(1 + neighbor_num_unpool_2) };
+            cout << "output point num: " << shape_info[0] << "; max_neighbor_num: " << shape_info[1] << "\n";
 
-            cout<<"save "<<save_path+"_unpool"+to_string(i)+".npy\n";
-            int neighbor_num_unpool_2 = unpool_neighborID_lst_lst.size()/before_pool_size-1;
-            shape_info = {(size_t)before_pool_size, (size_t)(1+neighbor_num_unpool_2) };
-            cout<<"output point num: "<<shape_info[0]<<"; max_neighbor_num: "<<shape_info[1]<<"\n";
-            cnpy::npy_save(save_path+"_unpool"+to_string(i)+".npy", &unpool_neighborID_lst_lst [0], shape_info, "w");//"a" appends to the file we created above
+            try {
+                cnpy::npy_save(save_path + "_unpool" + to_string(i) + ".npy", &unpool_neighborID_lst_lst[0], shape_info, "w");
+            } catch (const std::exception &e) {
+                cerr << "Error saving unpool file: " << e.what() << "\n";
+                return;
+            }
 
-            //cout<<"save old to new index list"<<to_string(i)<<".\n";
-            //shape_info = {(size_t)after_pool_size};
-            //cout<<shape_info[0]<<" "<<shape_info[1]<<"\n";
-            //cnpy::npy_save(save_path+"_center_lst"+to_string(i)+".npy", &_meshPoolers[i]._center_lst, shape_info, "w");
 
+                //cout<<"save old to new index list"<<to_string(i)<<".\n";
+                //shape_info = {(size_t)after_pool_size};
+                //cout<<shape_info[0]<<" "<<shape_info[1]<<"\n";
+                //cnpy::npy_save(save_path+"_center_lst"+to_string(i)+".npy", &_meshPoolers[i]._center_lst, shape_info, "w");
         }
-
-
     }
 
 

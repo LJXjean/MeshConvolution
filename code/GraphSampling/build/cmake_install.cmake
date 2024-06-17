@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/JEAN/MeshConvolution/train/0422_graphAE_dfaust/connections/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/JEAN/MeshConvolution/code/GraphSampling/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

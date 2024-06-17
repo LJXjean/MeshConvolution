@@ -22,6 +22,14 @@ void set_7k_mesh_layers_dfaust(MeshCNN &meshCNN)
     meshCNN.add_pool_layer(2,2,2);// pool/unpool7
 }
 
+void set_3k_mesh_layers_capsule(MeshCNN &meshCNN)
+{
+    meshCNN.add_pool_layer(1,1,1);// pool/unpool0
+    meshCNN.add_pool_layer(3,2,3);// pool/unpool1
+    meshCNN.add_pool_layer(2,2,2);// pool/unpool2
+    meshCNN.add_pool_layer(2,2,2);// pool/unpool3
+}
+
 
 int main() {
     
@@ -30,7 +38,8 @@ int main() {
     Mesh mesh;
 
     
-    mesh.loadmesh_obj("../../data/DFAUST/template.obj");
+    mesh.loadmesh_obj("../../../../data/CAPSULES/template.obj");
+    //mesh.loadmesh_obj("../../data/DFAUST/template.obj");
     //mesh.loadmesh_obj("/mnt/hdd1/yi_hdd1/GraphCNN_Facebook/body/fall/data/D-FAUST/sample.obj");
     //mesh.loadmesh_obj("../../data/body_1m/template.obj");
 
@@ -40,11 +49,15 @@ int main() {
 
     //TIPS, you can set layer 0 with stride=1, pool_radius=1, unpool_radius=1 to use for computing the laplacian loss.
     set_7k_mesh_layers_dfaust(meshCNN);
+    //set_3k_mesh_layers_capsule(meshCNN);
 
     cout<<"#############################################################\n";
     cout<<"## Save pool and unpool connection matrices in npy ##########\n";
-    string folder="../../train/0422_graphAE_dfaust/ConnectionMatrices/";
+    string folder="../../../../train/0524_graphAE_capsules/ConnectionMatrices/";
+    //string folder="../../train/0422_graphAE_dfaust/ConnectionMatrices/";
     meshCNN.save_pool_and_unpool_neighbor_info_to_npz(folder);
+    //C:\Users\JEAN\MeshConvolution\train\0524_graphAE_capsules\ConnnectionMatrices
+    //C:\Users\JEAN\MeshConvolution\train\0422_graphAE_dfaust\ConnectionMatrices
 
 
     //Visualize the graph and receptive field of each down-sampling layer by vertex colors and dump in obj files.

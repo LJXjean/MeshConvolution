@@ -41,8 +41,6 @@ def get_faces_colors_from_vertices_colors(vertices_colors, faces):
     return faces_colors
 
 
-
-
 def get_faces_from_ply(ply):
     faces_raw = ply['face']['vertex_indices']
     faces = np.zeros((faces_raw.shape[0], 3)).astype(np.int32)
@@ -63,6 +61,7 @@ def test(param,test_npy_fn, out_ply_folder, skip_frames =0):
     
     model.cuda()
     
+    ##load weight
     if(param.read_weight_path!=""):
         print ("load "+param.read_weight_path)
         checkpoint = torch.load(param.read_weight_path)
@@ -71,6 +70,8 @@ def test(param,test_npy_fn, out_ply_folder, skip_frames =0):
     
     
     model.eval()
+    
+    
     
     template_plydata = PlyData.read(param.template_ply_fn)
     faces = get_faces_from_ply(template_plydata)
@@ -88,9 +89,14 @@ def test(param,test_npy_fn, out_ply_folder, skip_frames =0):
 
     geo_error_sum = 0
     laplace_error_sum=0
+    mhd_error_sum=0
     pc_num = len(pc_lst)
     n = 0
+
     
+    
+    #pc_gt_original = np.array(pc_lst[0].tolist())
+    #Dataloader.save_pc_into_ply(template_plydata, pc_gt_original, out_ply_folder+"%08d"%(n)+"_gt_original.ply")
     while (n<(pc_num-1)):
         
         batch = min(pc_num-n, param.batch)
@@ -104,11 +110,14 @@ def test(param,test_npy_fn, out_ply_folder, skip_frames =0):
         if(batch<param.batch):
             pcs_torch = torch.cat((pcs_torch, torch.zeros(param.batch-batch, param.point_num, 3).cuda()),0)
 
-        out_pcs_torch = model(pcs_torch)
+        out_pcs_torch,_ = model(pcs_torch)
         geo_error = model.compute_geometric_mean_euclidean_dist_error(pcs_torch[0:batch], out_pcs_torch[0:batch])
         geo_error_sum += geo_error*batch
         laplace_error_sum = laplace_error_sum + model.compute_laplace_Mean_Euclidean_Error(pcs_torch[0:batch], out_pcs_torch[0:batch])*batch
         print (n, geo_error.item())
+
+        mhd_error = model.compute_modified_hausdorff_dist(pcs_torch[0:batch], out_pcs_torch[0:batch])
+        mhd_error_sum += mhd_error*batch
         
 
         if(n % 128 ==0):
@@ -128,38 +137,40 @@ def test(param,test_npy_fn, out_ply_folder, skip_frames =0):
 
     geo_error_avg=geo_error_sum.item()/pc_num
     laplace_error_avg=  laplace_error_sum.item()/pc_num
+    mhd_error_avg = mhd_error_sum.item()/pc_num
 
-    print ("geo error:", geo_error_avg, "laplace error:", laplace_error_avg)
+    print ("geo error:", geo_error_avg, "laplace error:", laplace_error_avg, "mhd error:", mhd_error_avg)
+    
 
     
     
+if __name__ == "__main__":
+    param=Param.Parameters()
+    param.read_config("../../train/0524_graphAE_capsules/30_conv_res.config")
 
-param=Param.Parameters()
-param.read_config("../../train/0422_graphAE_dfaust/10_conv_res.config")
+    #param.augmented_data=True
+    param.batch =32
 
-#param.augmented_data=True
-param.batch =32
+    param.read_weight_path = "../../train/0524_graphAE_capsules/weight_30/model_epoch0562.weight"
+    print (param.read_weight_path)
 
-param.read_weight_path = "../../train/0422_graphAE_dfaust/weight_10/model_epoch0198.weight"
-print (param.read_weight_path)
+    test_npy_fn = "../../data/CAPSULES/test.npy"    
 
-test_npy_fn = "../../data/DFAUST/test.npy"
+    out_test_folder = "../../train/0524_graphAE_capsules/test_30/epoch0562/"
 
-out_test_folder = "../../train/0422_graphAE_dfaust/test_10/epoch198/"
+    out_ply_folder = out_test_folder+"ply/"
 
-out_ply_folder = out_test_folder+"ply/"
+    if not os.path.exists(out_ply_folder):
+        os.makedirs(out_ply_folder)
+        
 
-if not os.path.exists(out_ply_folder):
-    os.makedirs(out_ply_folder)
-    
+    pc_lst= np.load(test_npy_fn)
 
-pc_lst= np.load(test_npy_fn)
-
-with torch.no_grad():
-    torch.manual_seed(2)
-    np.random.seed(2)
-    
-    test(param, test_npy_fn, out_ply_folder,skip_frames=0)
+    with torch.no_grad():
+        torch.manual_seed(2)
+        np.random.seed(2)
+        
+        test(param, test_npy_fn, out_ply_folder,skip_frames=0)
     
 
         

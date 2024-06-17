@@ -285,9 +285,10 @@ class Model(nn.Module):
     #input_pc batch*in_pn*in_channel
     #out_pc batch*out_pn*out_channel
     def forward_one_conv_layer_batch(self, in_pc, layer_info, is_final_layer=False):
+        
         batch = in_pc.shape[0]
         
-        in_channel, out_channel, in_pn, out_pn, weight_num,  max_neighbor_num, neighbor_num_lst,neighbor_id_lstlst, conv_layer, residual_layer, residual_rate,neighbor_mask_lst, zeros_batch_outpn_outchannel=layer_info
+        in_channel, out_channel, in_pn, out_pn, weight_num,  max_neighbor_num, neighbor_num_lst, neighbor_id_lstlst, conv_layer, residual_layer, residual_rate,neighbor_mask_lst, zeros_batch_outpn_outchannel=layer_info
         
         
         in_pc_pad = torch.cat((in_pc, torch.zeros(batch, 1, in_channel).cuda()), 1) #batch*(in_pn+1)*in_channel
@@ -356,15 +357,16 @@ class Model(nn.Module):
         
         return out_pc
     
+
     
-     ##in_pc batch*point_num*3
+    ##in_pc batch*point_num*3
     ##out_pc batch*point_num*3 
     def forward(self, in_pc): 
         
         #print("in_pc", in_pc.mean(1), in_pc.min(1), in_pc.max(1))
         
         out_pc = in_pc.clone()
-        
+        latant_pc = []
         
         for i in range(self.layer_num):
             if(i<(self.layer_num-1)):
@@ -378,9 +380,12 @@ class Model(nn.Module):
                 else:
                     out_pc = self.forward_one_conv_layer_batch_during_test(out_pc,self.layer_lst[i], is_final_layer=True)
 
+            if(i==7):
+                latant_pc = out_pc.clone()
+
         #out_pc = self.final_linear(out_pc.transpose(1,2)).transpose(1,2) #batch*3*point_num
         
-        return out_pc
+        return out_pc, latant_pc 
     
     def forward_till_layer_n(self,in_pc,layer_n):
         out_pc = in_pc.clone()
@@ -436,6 +441,49 @@ class Model(nn.Module):
             error = dists.sum()
 
             return error
+        
+        import torch
+
+    def compute_modified_hausdorff_dist(self, gt_pc, predict_pc, weights=[]):
+        if gt_pc.size(2) != predict_pc.size(2):
+            raise ValueError("The dimensions of points in the two sets are not equal")
+        
+        batch_size = gt_pc.size(0)
+        point_num = gt_pc.size(1)
+        
+        if len(weights) == 0:
+            # Compute the Modified Hausdorff Distance without weights
+            dist_matrix = torch.cdist(gt_pc, predict_pc)
+            fhd = torch.min(dist_matrix, dim=2)[0]
+            mean_fhd = torch.mean(fhd, dim=1)
+            
+            dist_matrix = torch.cdist(predict_pc, gt_pc)
+            rhd = torch.min(dist_matrix, dim=2)[0]
+            mean_rhd = torch.mean(rhd, dim=1)
+            
+            mhd = torch.max(mean_fhd, mean_rhd)
+            return torch.mean(mhd)
+        else:
+            # Compute the Modified Hausdorff Distance with weights
+            weights = torch.tensor(weights).to(gt_pc.device)
+            
+            dist_matrix = torch.cdist(gt_pc, predict_pc)
+            fhd = torch.min(dist_matrix, dim=2)[0]
+            weighted_fhd = fhd * weights.unsqueeze(1)
+            mean_fhd = torch.mean(weighted_fhd, dim=1)
+            
+            dist_matrix = torch.cdist(predict_pc, gt_pc)
+            rhd = torch.min(dist_matrix, dim=2)[0]
+            weighted_rhd = rhd * weights.unsqueeze(1)
+            mean_rhd = torch.mean(weighted_rhd, dim=1)
+            
+            mhd = torch.max(mean_fhd, mean_rhd)
+            return torch.mean(mhd)
+
+# Example usage
+# gt_pc and predict_pc should be tensors with shape (batch_size, point_num, dimensions)
+# weights is an optional list or tensor with length equal to batch_size
+
 
 
     ##weights batch*point_num, weights.sum(1)==1

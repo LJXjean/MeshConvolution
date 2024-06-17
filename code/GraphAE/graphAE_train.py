@@ -22,7 +22,7 @@ def train_one_iteration(param, model, optimizer,pc_lst, epoch, iteration):
     
     #in_pc_batch =  in_pc_batch -pcs_mean_torch
     #start=datetime.now()
-    out_pc_batch = model(in_pc_batch)
+    out_pc_batch,_ = model(in_pc_batch)
     
     #in_pc_batch=in_pc_batch+pcs_mean_torch
     #out_pc_batch = out_pc_batch+pcs_mean_torch
@@ -74,7 +74,7 @@ def evaluate(param, model, pc_lst,epoch,template_plydata, suffix, log_eval=True)
             pcs_torch = Dataloader.get_augmented_pcs(pcs_torch)
         if(batch<param.batch):
             pcs_torch = torch.cat((pcs_torch, torch.zeros(param.batch-batch, param.point_num, 3).cuda()),0)
-        out_pcs_torch = model(pcs_torch)
+        out_pcs_torch,_ = model(pcs_torch)
         geo_error_sum = geo_error_sum + model.compute_geometric_mean_euclidean_dist_error(pcs_torch, out_pcs_torch)*batch
 
         if(n==0):   
@@ -104,7 +104,7 @@ def test(param, model, pc_lst, epoch, log_eval=True):
         if(param.augmented_data==True):
             pcs_torch = Dataloader.get_augmented_pcs(pcs_torch)
         
-        out_pcs_torch = model(pcs_torch)
+        out_pcs_torch,_ = model(pcs_torch)
         geo_error_sum = geo_error_sum + model.compute_geometric_mean_euclidean_dist_error(pcs_torch, out_pcs_torch)*batch
         n = n+batch
 
@@ -187,10 +187,11 @@ def train(param):
 
         
 
-param=Param.Parameters()
-param.read_config("../../train/0422_graphAE_dfaust/10_conv_res.config")
-
-train(param)
+if __name__ == '__main__':
+    param=Param.Parameters()
+    #param.read_config("../../train/0422_graphAE_dfaust/10_conv_res.config")
+    param.read_config("../../train/0524_graphAE_capsules/30_conv_res.config")
+    train(param)
 
 
         
