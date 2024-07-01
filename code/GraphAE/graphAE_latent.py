@@ -42,6 +42,7 @@ def extract_latent_vectors(param, test_npy_fn, out_latent_npy_fn):
             pcs_torch = torch.cat((pcs_torch, torch.zeros(param.batch - batch, param.point_num, 3).cuda()), 0)
         
         _, latent_vector_batch = model(pcs_torch)
+        print(latent_vector_batch)
         latent_vectors.append(latent_vector_batch.cpu().numpy())
         
         n += batch
@@ -50,14 +51,15 @@ def extract_latent_vectors(param, test_npy_fn, out_latent_npy_fn):
     np.save(out_latent_npy_fn, latent_vectors)
     print(f"Saved latent vectors to {out_latent_npy_fn}")
 
+
 if __name__ == "__main__":
     param = Param.Parameters()
     param.read_config("../../train/0524_graphAE_capsules/30_conv_res.config")
-    param.batch = 32
+    param.batch = 1
     param.read_weight_path = "../../train/0524_graphAE_capsules/weight_30/model_epoch0562.weight"
     
     test_npy_fn = "../../data/CAPSULES/DatabaseCapsules.npy"
-    out_latent_npy_fn = "../../train/0524_graphAE_capsules/test_30/epoch0562/latent_vectors.npy"
+    out_latent_npy_fn = "../../train/0524_graphAE_capsules/test_30/epoch0562/latent_vectors_batch1.npy"
     
     with torch.no_grad():
         torch.manual_seed(2)

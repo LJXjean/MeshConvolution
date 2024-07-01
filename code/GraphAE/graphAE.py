@@ -358,11 +358,29 @@ class Model(nn.Module):
         return out_pc
     
 
+    def reconstruct_pc(self, latent_pc):
+        out_pc = latent_pc.clone()
+        
+        for i in range(self.layer_num):
+            if i<=7:
+                continue
+
+            if(i<(self.layer_num-1)):
+                if(self.test_mode==False):
+                    out_pc = self.forward_one_conv_layer_batch(out_pc, self.layer_lst[i])
+                else:
+                    out_pc = self.forward_one_conv_layer_batch_during_test(out_pc, self.layer_lst[i])
+            else:
+                if(self.test_mode==False):
+                    out_pc =  self.forward_one_conv_layer_batch(out_pc, self.layer_lst[i], is_final_layer=True)
+                else:
+                    out_pc = self.forward_one_conv_layer_batch_during_test(out_pc,self.layer_lst[i], is_final_layer=True)
+        
+        return out_pc
     
     ##in_pc batch*point_num*3
     ##out_pc batch*point_num*3 
     def forward(self, in_pc): 
-        
         #print("in_pc", in_pc.mean(1), in_pc.min(1), in_pc.max(1))
         
         out_pc = in_pc.clone()
@@ -382,10 +400,9 @@ class Model(nn.Module):
 
             if(i==7):
                 latant_pc = out_pc.clone()
-
         #out_pc = self.final_linear(out_pc.transpose(1,2)).transpose(1,2) #batch*3*point_num
         
-        return out_pc, latant_pc 
+        return out_pc, latant_pc
     
     def forward_till_layer_n(self,in_pc,layer_n):
         out_pc = in_pc.clone()
